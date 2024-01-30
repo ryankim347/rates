@@ -36,24 +36,24 @@ const restaurantSchema = new mongoose.Schema({
   const RestaurantModel = mongoose.model('RestaurantModel', restaurantSchema);
 
   // Create a restaurant
-  const myDocument = new RestaurantModel({
-    name: "kungfutea",
-    location: "nova",
-    date: "012724",
-    cuisine: "taiwan",
-    rating: 5,
-    price: "$",
-    comments: "lol",
-    author: "Ryan"
-  });
+  // const myDocument = new RestaurantModel({
+  //   name: "kungfutea",
+  //   location: "nova",
+  //   date: "012724",
+  //   cuisine: "taiwan",
+  //   rating: 5,
+  //   price: "$",
+  //   comments: "lol",
+  //   author: "Ryan"
+  // });
   
-  myDocument.save()
-  .then((doc) => {
-    console.log(doc);
-  })  
-  .catch((err) => {
-    console.error(err);
-  });;
+  // myDocument.save()
+  // .then((doc) => {
+  //   console.log(doc);
+  // })  
+  // .catch((err) => {
+  //   console.error(err);
+  // });;
 
   // Fetch restaurants
   RestaurantModel.find({ author: 'Ryan' })
@@ -67,6 +67,17 @@ const restaurantSchema = new mongoose.Schema({
 app.use('/api', ()=>{
     console.log("hello")
 });
+
+app.get('/get-restaurants', (req, res)=>{
+  RestaurantModel.find({})
+  .then((doc) => {
+    res.send(doc);
+    console.log(res.get());
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+})
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
